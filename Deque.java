@@ -1,8 +1,6 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import edu.princeton.cs.algs4.StdOut;
-
 public class Deque<Item> implements Iterable<Item> {
 
     private Node first, last;
@@ -15,6 +13,9 @@ public class Deque<Item> implements Iterable<Item> {
             this.next = next;
         }
 
+        public Node() {
+        }
+
         Node prev;
         Item item;
         Node next;
@@ -22,13 +23,14 @@ public class Deque<Item> implements Iterable<Item> {
 
     // construct an empty deque
     public Deque() {
-        first = last = null;
+        first = null;
+        last = null;
         n = 0;
     }
 
     // is the deque empty?
     public boolean isEmpty() {
-        return first == null && last == null;
+        return first == null;
     }
 
     // return the number of items on the deque
@@ -40,12 +42,16 @@ public class Deque<Item> implements Iterable<Item> {
     public void addFirst(Item item) {
         checkForNull(item);
 
-        Node oldFirst = first;
-        first = new Node(item, null, oldFirst);
-        if (last == null) {
-            first.next = last;
+        if (isEmpty()) {
+            first = new Node();
+            first.item = item;
+            last = first;
         } else {
-            oldFirst.prev = first;
+            Node oldfirst = first;
+            first = new Node();
+            first.item = item;
+            first.next = oldfirst;
+            oldfirst.prev = first;
         }
         n++;
     }
@@ -54,10 +60,16 @@ public class Deque<Item> implements Iterable<Item> {
     public void addLast(Item item) {
         checkForNull(item);
 
-        Node oldLast = last;
-        last = new Node(item, oldLast, null);
-        if (oldLast != null) {
-            oldLast.next = last;
+        if (isEmpty()) {
+            last = new Node();
+            last.item = item;
+            first = last;
+        } else {
+            Node oldlast = last;
+            last = new Node();
+            last.item = item;
+            last.prev = oldlast;
+            oldlast.next = last;
         }
         n++;
     }
@@ -74,7 +86,11 @@ public class Deque<Item> implements Iterable<Item> {
 
         Item item = first.item;
         first = first.next;
-        first.prev = null;
+        if (isEmpty()) {
+            last = null;
+        } else {
+            first.prev = null;
+        }
         n--;
         return item;
     }
@@ -85,7 +101,11 @@ public class Deque<Item> implements Iterable<Item> {
 
         Item item = last.item;
         last = last.prev;
-        last.next = null;
+        if (last == null) {
+            first = null;
+        } else {
+            last.next = null;
+        }
         n--;
         return item;
     }
@@ -127,13 +147,43 @@ public class Deque<Item> implements Iterable<Item> {
     public static void main(String[] args) {
         Deque<Integer> deque = new Deque<>();
         assert deque.isEmpty();
+
+        System.out.println("Test addFirst");
         deque.addFirst(1);
         deque.addFirst(2);
         deque.addFirst(3);
+
+        System.out.println("Test addLast");
         deque.addLast(0);
-        assert deque.isEmpty() == false;
+        deque.addLast(-1);
+        deque.addLast(-2);
+
         for (Integer i : deque) {
-            StdOut.println(i);
+            System.out.println(i);
+        }
+
+        System.out.println("size: " + deque.size());
+
+        // System.out.println("Test removeFirst: ");
+        // System.out.println(deque.removeFirst());
+        // System.out.println(deque.removeFirst());
+        // System.out.println(deque.removeFirst());
+        // System.out.println(deque.removeFirst());
+        // System.out.println(deque.removeFirst());
+        // System.out.println(deque.removeFirst());
+
+        System.out.println("Test removeLast: ");
+        System.out.println(deque.removeLast());
+        System.out.println(deque.removeLast());
+        System.out.println(deque.removeLast());
+        System.out.println(deque.removeLast());
+        System.out.println(deque.removeLast());
+        System.out.println(deque.removeLast());
+
+        System.out.println("deque should be empty now.");
+        assert deque.isEmpty();
+        for (Integer i : deque) {
+            System.out.println(i);
         }
     }
 
