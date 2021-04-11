@@ -7,12 +7,6 @@ public class Deque<Item> implements Iterable<Item> {
     private int n;
 
     private class Node {
-        public Node(Item item, Node prev, Node next) {
-            this.prev = prev;
-            this.item = item;
-            this.next = next;
-        }
-
         public Node() {
         }
 
@@ -164,10 +158,10 @@ public class Deque<Item> implements Iterable<Item> {
 
         System.out.println("size: " + deque.size());
 
-        // System.out.println("Test removeFirst: ");
-        // System.out.println(deque.removeFirst());
-        // System.out.println(deque.removeFirst());
-        // System.out.println(deque.removeFirst());
+        System.out.println("Test removeFirst: ");
+        System.out.println(deque.removeFirst());
+        System.out.println(deque.removeFirst());
+        System.out.println(deque.removeFirst());
         // System.out.println(deque.removeFirst());
         // System.out.println(deque.removeFirst());
         // System.out.println(deque.removeFirst());
@@ -176,9 +170,9 @@ public class Deque<Item> implements Iterable<Item> {
         System.out.println(deque.removeLast());
         System.out.println(deque.removeLast());
         System.out.println(deque.removeLast());
-        System.out.println(deque.removeLast());
-        System.out.println(deque.removeLast());
-        System.out.println(deque.removeLast());
+        // System.out.println(deque.removeLast());
+        // System.out.println(deque.removeLast());
+        // System.out.println(deque.removeLast());
 
         System.out.println("deque should be empty now.");
         assert deque.isEmpty();
