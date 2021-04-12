@@ -1,5 +1,4 @@
 import java.util.Iterator;
-import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
 import edu.princeton.cs.algs4.StdOut;
@@ -14,10 +13,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     // construct an empty randomized queue
     public RandomizedQueue() {
         items = (Item[]) new Object[10];
-    }
-
-    public RandomizedQueue(int capacity) {
-        items = (Item[]) new Object[capacity];
     }
 
     // is the randomized queue empty?
@@ -129,7 +124,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         RandomizedQueue<Integer> test = new RandomizedQueue<>();
         assert test.isEmpty();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 8; i++) {
             test.enqueue(i);
         }
         for (Integer i : test) {
@@ -137,19 +132,27 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         }
         assert test.isEmpty() == false;
 
-        StdOut.println("deque: ");
+        StdOut.println("deque add: ");
+        StdOut.println(test.dequeue());
+        StdOut.println(test.dequeue());
+        StdOut.println(test.dequeue());
+        StdOut.println(test.dequeue());
+        StdOut.println(test.dequeue());
         StdOut.println(test.dequeue());
         StdOut.println(test.dequeue());
         StdOut.println(test.dequeue());
 
-        StdOut.println("First loop");
-        for (Integer i : test) {
-            StdOut.println(i);
+        StdOut.println("re enqueue");
+        for (int i = 0; i < 5; i++) {
+            test.enqueue(i);
         }
 
-        StdOut.println("Second loop");
+        StdOut.println("loop");
         for (Integer i : test) {
-            StdOut.println(i);
+            for (Integer j : test) {
+                StdOut.print(i + "-" + j + " ");
+            }
+            StdOut.println();
         }
     }
 
