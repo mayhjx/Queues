@@ -48,9 +48,12 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         int randomNum = getRandomNum();
         Item item = items[randomNum];
 
-        for (int i = randomNum; i < n - 1; i++) {
-            items[i] = items[i + 1];
-        }
+        // for (int i = randomNum; i < n - 1; i++) {
+        // items[i] = items[i + 1];
+        // }
+
+        // take the element on the tail of the array and insert it into that index
+        items[randomNum] = items[n - 1];
         items[--n] = null;
 
         if (n > 0 && n == items.length / 4) {

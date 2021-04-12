@@ -128,7 +128,7 @@ public class Deque<Item> implements Iterable<Item> { // 16 byte
         }
 
         public Item next() {
-            if (isEmpty()) {
+            if (!hasNext()) {
                 throw new NoSuchElementException();
             }
 
