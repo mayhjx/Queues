@@ -1,18 +1,19 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class Deque<Item> implements Iterable<Item> {
+public class Deque<Item> implements Iterable<Item> { // 16 byte
+    // A deque containing n items must use at most 48n + 192 bytes of memory
+    private Node first, last; // 2 * 24 byte * N + 24 byte + 16 byte
+    private int n; // 4 byte
+    // padding 4 byte
 
-    private Node first, last;
-    private int n;
-
-    private class Node {
+    private class Node { // 16 byte
         public Node() {
         }
 
-        Node prev;
-        Item item;
-        Node next;
+        Node prev; // 8 byte
+        Item item; // 8 byte the most
+        Node next; // 8 byte
     }
 
     // construct an empty deque
@@ -115,8 +116,8 @@ public class Deque<Item> implements Iterable<Item> {
         return new ListIterator();
     }
 
-    private class ListIterator implements Iterator<Item> {
-        private Node current = first;
+    private class ListIterator implements Iterator<Item> { // 16 byte
+        private Node current = first; // 8 byte
 
         public boolean hasNext() {
             return current != null;
@@ -175,6 +176,8 @@ public class Deque<Item> implements Iterable<Item> {
         // System.out.println(deque.removeLast());
 
         System.out.println("deque should be empty now.");
+        System.out.println("size: " + deque.size());
+
         assert deque.isEmpty();
         for (Integer i : deque) {
             System.out.println(i);
