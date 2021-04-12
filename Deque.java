@@ -7,7 +7,7 @@ public class Deque<Item> implements Iterable<Item> { // 16 byte
     private int n; // 4 byte
     // padding 4 byte
 
-    private class Node { // 16 byte
+    private class Node { // 24 byte
         public Node() {
         }
 
